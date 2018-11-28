@@ -1,0 +1,10 @@
+
+# IntelliJ project files
+.idea
+*.iml
+
+# Build output directories
+out
+gen
+build
+.gradle
