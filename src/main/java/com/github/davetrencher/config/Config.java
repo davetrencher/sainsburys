@@ -21,7 +21,7 @@ public class Config {
     /**
      * Holds the properties, This should never be returned as it's mutable.
      */
-    private Properties props = new Properties();
+    private final Properties props = new Properties();
 
     /**
      * Method to get hold of the Config object.

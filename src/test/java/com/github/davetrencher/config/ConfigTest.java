@@ -16,7 +16,7 @@ public class ConfigTest {
     }
 
     @Test
-    public void configReturnsURL() throws Exception {
+    public void configReturnsURL() {
 
         assertThat(subject.get("url"), is("https://localhost:8889/site/www.sainsburys.co.uk/webapp/wcs/stores/servlet/gb/groceries/berries-cherries-currants6039.html"));
 

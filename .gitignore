@@ -5,6 +5,5 @@
 
 # Build output directories
 out
-gen
 build
 .gradle
