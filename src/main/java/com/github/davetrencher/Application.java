@@ -15,7 +15,9 @@ public class Application {
 
     public static void main(String[] args) {
         logger.info("Hello World");
+        //get prices
 
+        //output prices
 
     }
 }
