@@ -1,12 +1,14 @@
 package com.github.davetrencher.config;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class ConfigTest {
+
+    private static final String EXPECTED_CONFIG_URL = "http://localhost:9999/";
 
     private Config subject;
 
@@ -18,7 +20,7 @@ public class ConfigTest {
     @Test
     public void configReturnsURL() {
 
-        assertThat(subject.get("url"), is("https://localhost:8889/site/www.sainsburys.co.uk/webapp/wcs/stores/servlet/gb/groceries/berries-cherries-currants6039.html"));
+        assertThat(subject.get("url"), is(EXPECTED_CONFIG_URL));
 
     }
 

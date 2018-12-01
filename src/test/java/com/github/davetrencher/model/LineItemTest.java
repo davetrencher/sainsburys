@@ -1,12 +1,11 @@
 package com.github.davetrencher.model;
 
-import org.junit.Test;
-
-import java.math.BigDecimal;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
+
+import org.junit.Test;
+import java.math.BigDecimal;
 
 public class LineItemTest {
 
