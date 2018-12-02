@@ -11,6 +11,9 @@ import java.util.Properties;
  */
 public class Config {
 
+    /**
+     * Properties filename.
+     */
     private static final String FILE_NAME = "./config.properties";
 
     /**
@@ -44,6 +47,11 @@ public class Config {
         initialise();
     }
 
+    /**
+     * Return the property corresponding to the name passed in.
+     * @param propertyName the name of property that we are after.
+     * @return the property value or null.
+     */
     public String get(String propertyName) {
         return (String)props.get(propertyName);
     }
