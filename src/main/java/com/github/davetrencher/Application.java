@@ -1,6 +1,9 @@
 package com.github.davetrencher;
 
 import com.github.davetrencher.config.Config;
+import com.github.davetrencher.exception.FormattingException;
+import com.github.davetrencher.formatters.Formatter;
+import com.github.davetrencher.formatters.Formatters;
 import com.github.davetrencher.model.LineItem;
 import com.github.davetrencher.services.LineItemService;
 import org.apache.logging.log4j.LogManager;
@@ -24,16 +27,14 @@ public class Application {
         String url = null;
         try {
             url = Config.getInstance().get("url");
-            String cssRef = Config.getInstance().get("cssRef");
 
             List<LineItem> lineItems = new LineItemService().getLineItems(url);
 
+            logger.info(Formatters.JSON.getInstance().format(lineItems));
 
-        } catch (IOException ioe) {
-            logger.error("Unable to get line item data from: " +url, ioe);
+        } catch (IOException | FormattingException e) {
+            logger.error("Unable to get line item data from: " +url, e);
         }
-
-        //output prices
 
     }
 }

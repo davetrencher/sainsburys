@@ -26,6 +26,7 @@ public class LineItemScraperTest implements ScraperTest {
 
     private static final String BRITISH_STRAWBERRIES = "sainsburys-british-strawberries-400g.html";
     private static final String BRITISH_MIXED_BERRY_NO_KCAL = "sainsburys-mixed-berry-twin-pack-200g-7696255-p-44_no_kcal.html";
+    private static final String BLACK_CURRANTS = "Sainsburys_Blackcurrants_150g_Sainsburys.html";
 
     @ClassRule
     public static WireMockClassRule wireMockRule = new WireMockClassRule(9999);
@@ -62,6 +63,25 @@ public class LineItemScraperTest implements ScraperTest {
 
     @Test
     public void scrapeReturnsLineItemWithoutKCal() throws IOException {
+
+        wireMockUrl = givenWireMockURL(BLACK_CURRANTS);
+
+        String body = getBodyFromFile(this.getClass(), BLACK_CURRANTS);
+
+        givenWireMockReturnsData(wireMockUrl, HttpURLConnection.HTTP_OK, body);
+
+        LineItem lineItem = subject.scrape(wireMockUrl);
+
+        assertThat(lineItem.getTitle(), is("Sainsbury's Blackcurrants 150g"));
+        assertThat(lineItem.getKcalPer100g(), is(nullValue()));
+        assertThat(lineItem.getUnitPrice(), is(new BigDecimal(1.75)));
+        assertThat(lineItem.getDescription(), is("Union Flag"));
+
+
+    }
+
+    @Test
+    public void scrapeBlackCurrentsReturnsLineItemWithDescription() throws IOException {
 
         wireMockUrl = givenWireMockURL(BRITISH_MIXED_BERRY_NO_KCAL);
 

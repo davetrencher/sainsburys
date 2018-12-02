@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class will scrape all the URLs from a page.
+ * Classes that plan to parse links from pages will exted this class.
  */
 public abstract class LinkScraper implements Scraper<List<String>> {
 
@@ -30,6 +30,7 @@ public abstract class LinkScraper implements Scraper<List<String>> {
         List<String> lineItemLinks = new ArrayList<>();
 
         if (response.statusCode() == HttpURLConnection.HTTP_OK) {
+
             Document doc = response.parse();
             for (Element a : doc.select(getCssRef())) {
                 lineItemLinks.add(a.attributes().get("href"));
@@ -40,5 +41,10 @@ public abstract class LinkScraper implements Scraper<List<String>> {
 
     }
 
+    /**
+     * This method should return the cssRef that will identify the links that will be scraped from the page.
+     * @return the cssRef that will be used to identify links within the page.
+     * @throws IOException thrown if we can't access the page.
+     */
     public abstract String getCssRef() throws IOException;
 }

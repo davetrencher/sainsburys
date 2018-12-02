@@ -33,9 +33,9 @@ public class LineItemScraper implements Scraper<LineItem> {
             Document doc = response.parse();
 
             Element title = doc.selectFirst("div.productTitleDescriptionContainer h1");
-            Element kCalPer100g = doc.selectFirst("table.nutritionTable tbody tr:nth-child(2) td"); //check contains kcal
+            Element kCalPer100g = doc.selectFirst("table.nutritionTable tbody tr:nth-child(2) td");
             Element unitPrice = doc.selectFirst("div.pricingAndTrolleyOptions p.pricePerUnit");
-            Element description = doc.selectFirst(".productText p");
+            Element description = doc.selectFirst(".productText p:not(.statements)");
 
             return new LineItem.Builder(toString(title))
                                             .kCalPer100g(kCalPer100gToInteger(kCalPer100g))

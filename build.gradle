@@ -16,7 +16,9 @@ ext {
 
 dependencies {
 
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
 
     compile group: "org.apache.logging.log4j", name: "log4j-core", version: "$log4jVersion"
     compile group: "org.apache.logging.log4j", name: "log4j-api", version: "$log4jVersion"
@@ -25,6 +27,8 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
 
     compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
+
+
 
     testCompile "com.github.tomakehurst:wiremock:2.19.0"
 
