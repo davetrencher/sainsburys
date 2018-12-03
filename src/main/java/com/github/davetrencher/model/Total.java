@@ -10,9 +10,14 @@ import java.util.List;
 public class Total {
 
     /**
-     * Set the scale to 3 so we don't end up with rounding errors.
+     * Set the scale to 4 so we don't end up with rounding errors.
      */
-    private static final int CURRENCY_SCALE = 3;
+    private static final int CALCULATION_SCALE = 4;
+
+    /**
+     * Currency should be displayed to two decimal places.
+     */
+    private static final int CURRENCY_DISPLAY_SCALE = 2;
 
     private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
 
@@ -37,14 +42,14 @@ public class Total {
         this.gross = lineItems.stream()
                 .map(LineItem::getUnitPrice)
                 .reduce(BigDecimal.ZERO,BigDecimal::add)
-                .setScale(2,RoundingMode.HALF_UP);
+                .setScale(CURRENCY_DISPLAY_SCALE,RoundingMode.HALF_UP);
 
         this.vat = gross.subtract(lineItems.stream()
                 .map(lineItem -> lineItem.getUnitPrice()
-                                        .setScale(CURRENCY_SCALE,RoundingMode.HALF_UP)
+                                        .setScale(CALCULATION_SCALE,RoundingMode.HALF_UP)
                                         .divide(getVatDivisor(lineItem),RoundingMode.HALF_UP))
                 .reduce(BigDecimal.ZERO,BigDecimal::add)
-                .setScale(2,RoundingMode.HALF_UP));
+                .setScale(CURRENCY_DISPLAY_SCALE,RoundingMode.HALF_UP));
 
     }
 
@@ -68,8 +73,8 @@ public class Total {
 
     private BigDecimal getVatDivisor(LineItem lineItem) {
 
-        return new BigDecimal(1).setScale(CURRENCY_SCALE,RoundingMode.HALF_UP)
-                .add(lineItem.getVatRate().setScale(CURRENCY_SCALE,RoundingMode.HALF_UP).divide(ONE_HUNDRED, RoundingMode.HALF_UP));
+        return new BigDecimal(1).setScale(CALCULATION_SCALE,RoundingMode.HALF_UP)
+                .add(lineItem.getVatRate().setScale(CALCULATION_SCALE,RoundingMode.HALF_UP).divide(ONE_HUNDRED, RoundingMode.HALF_UP));
     }
 
 
