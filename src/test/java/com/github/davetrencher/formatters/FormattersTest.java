@@ -15,7 +15,6 @@ public class FormattersTest {
 
         assertThat(JSON.getInstance(), is(instanceOf(JsonFormatter.class)));
 
-
     }
 
     @Test

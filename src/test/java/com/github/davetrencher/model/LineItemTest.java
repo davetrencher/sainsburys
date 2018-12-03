@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 
 import org.junit.Test;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 
 public class LineItemTest {
@@ -17,7 +19,7 @@ public class LineItemTest {
     private LineItem subject;
 
     @Test
-    public void lineItemBuilderFullyPopulatesLineItem() {
+    public void lineItemBuilderFullyPopulatesLineItem() throws IOException {
 
         LineItem lineItem = new LineItem.Builder(TITLE)
                                         .kCalPer100g(KCAL_PER_100G)
@@ -33,7 +35,7 @@ public class LineItemTest {
 
 
     @Test
-    public void lineItemBuilderLeavesKCALNullIfNotSet() {
+    public void lineItemBuilderLeavesKCALNullIfNotSet() throws IOException  {
 
         LineItem lineItem = new LineItem.Builder(TITLE)
                 .unitPrice(UNIT_PRICE)

@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.github.davetrencher.model.LineItem;
+import com.github.davetrencher.util.TestHelper;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -24,10 +25,7 @@ public class LineItemServiceTest {
     private static final String URL_STRAWBERRIES_RELATIVE = "../../../../../../shop/gb/groceries/berries-cherries-currants/sainsburys-british-strawberries-400g.html";
     private static final String URL_STRAWBERRIES_ABSOLUTE = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-british-strawberries-400g.html";
 
-    private static final String BERRIES_CHERRIES_CURRANTS_SINGLE_ITEM = "berries-cherries-currants-one-item.html";
-    private static final String BRITISH_STRAWBERRIES = "sainsburys-british-strawberries-400g.html";
-    private static final String URL_GROCERIES_SECTION = "serverside-test/site/www.sainsburys.co.uk/webapp/wcs/stores/servlet/gb/groceries/";
-    private static final String URL_LINE_ITEM_SECTION = "serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/";
+
 
     @ClassRule
     public static WireMockClassRule wireMockRule = new WireMockClassRule(9999);
@@ -44,14 +42,7 @@ public class LineItemServiceTest {
     @Test
     public void getLineItems() throws IOException {
 
-        String productPage = givenWireMockURL(URL_GROCERIES_SECTION +BERRIES_CHERRIES_CURRANTS_SINGLE_ITEM);
-        String productBody = getBodyFromFile(this.getClass(), BERRIES_CHERRIES_CURRANTS_SINGLE_ITEM);
-        givenWireMockReturnsData(productPage, HttpURLConnection.HTTP_OK, productBody);
-
-        String lineItemPage = givenWireMockURL(URL_LINE_ITEM_SECTION +BRITISH_STRAWBERRIES);
-        String lineItemBody = getBodyFromFile(this.getClass(), BRITISH_STRAWBERRIES);
-
-        givenWireMockReturnsData(lineItemPage, HttpURLConnection.HTTP_OK, lineItemBody);
+        String productPage = TestHelper.givenWebsiteWithLineItems(this.getClass());
 
         List<LineItem> lineItems = subject.getLineItems(productPage);
 

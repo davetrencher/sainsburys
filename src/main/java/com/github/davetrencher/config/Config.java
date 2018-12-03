@@ -1,6 +1,7 @@
 package com.github.davetrencher.config;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Properties;
 
 /**
@@ -60,6 +61,15 @@ public class Config {
 
         props.load(this.getClass().getResourceAsStream(FILE_NAME));
 
+    }
+
+    /**
+     * The standard Vat rate that will be applied to line items. This can be overriden per lineItem.
+     * This should be pulled from config.
+     * @return
+     */
+    public BigDecimal getStandardVatRate() {
+        return new BigDecimal(get("vatRate"));
     }
 
 }

@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.is;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 public class ConfigTest {
 
     private static final String EXPECTED_CONFIG_URL = "http://localhost:9999/";
@@ -24,5 +26,10 @@ public class ConfigTest {
 
     }
 
+    @Test
+    public void getStandardVatRate() {
 
+        assertThat(subject.getStandardVatRate(), is(new BigDecimal("20.0")));
+
+    }
 }

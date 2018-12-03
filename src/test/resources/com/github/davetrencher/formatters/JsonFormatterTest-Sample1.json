@@ -1,0 +1,26 @@
+{
+  "results" : [ {
+    "title" : "item1",
+    "kcalPer100g" : 33,
+    "unitPrice" : 1.75,
+    "description" : "item1 Description"
+  }, {
+    "title" : "item2",
+    "unitPrice" : 2.75,
+    "description" : "item2 Description"
+  }, {
+    "title" : "item3",
+    "kcalPer100g" : 44,
+    "unitPrice" : 1.00,
+    "description" : "item3 Description"
+  }, {
+    "title" : "item4",
+    "kcalPer100g" : 55,
+    "unitPrice" : 0.75,
+    "description" : "item4 Description"
+  } ],
+  "total" : {
+    "gross" : 6.25,
+    "vat" : 1.04
+  }
+}
