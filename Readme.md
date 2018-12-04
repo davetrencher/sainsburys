@@ -71,6 +71,15 @@ Build the project
 ./gradlew clean build fatJar
 
 ```
+
+## Execution
+
+Run the project
+
+```
+ java -jar build/libs/sainsburys-all.jar
+```
+
 ## Configuration
 
 Configuration is held in: ``src/main/resources/config/config.properties``
@@ -82,10 +91,5 @@ or root relative path e.g.
  java -jar build/libs/sainsburys-all.jar /config/config2.properties
 ```
 
-## Execution
-
-Run the project
-
-```
- java -jar build/libs/sainsburys-all.jar
-```
+Using ```/config/config2.properties``` will set the standard VAT rate to 10% rather than 20% for 
+demonstration purposes.
