@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 public class ConfigTest {
@@ -15,7 +16,7 @@ public class ConfigTest {
     private Config subject;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws IOException {
         subject = Config.getInstance();
     }
 

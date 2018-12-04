@@ -25,44 +25,31 @@ public class Application {
 
     public static void main(String[] args)  {
 
-        String url = getUrl(args);
+        String fileName = getFileName(args);
 
-        if (url == null) {
-            logger.error("No url found unable to obtain product data, please check configuration.");
-            System.exit(0);
-        }
-
-        scrapeAndOutputData(url);
-
-    }
-
-    private static void scrapeAndOutputData(String url) {
         try {
 
-            List<LineItem> lineItems = new LineItemService().getLineItems(url);
+            Config.setFileNameOverride(fileName);
+            String productPageURL = Config.getInstance().get("url");
+            List<LineItem> lineItems = new LineItemService().getLineItems(productPageURL);
             Result result = new LineItemResult(lineItems);
 
             logger.info(Formatters.JSON.getInstance().format(result));
 
-        } catch (IOException | FormattingException e) {
-            logger.error("Unable to get line item data from: " +url, e);
+        } catch (IOException ioe) {
+            logger.error("Issue retrieving lineitem data", ioe);
+        } catch (FormattingException fe) {
+            logger.error("Issue outputting lineitem data", fe);
         }
     }
 
-    private static String getUrl(String[] args) {
+    private static String getFileName(String[] args) {
 
-        try {
-            if (args != null && args.length == 1) {
-                return args[0];
-            }
-
-            return Config.getInstance().get("url");
-
-        } catch (IOException ioe) {
-            logger.error("Unable to load Url from config", ioe);
+        if (args != null && args.length == 1) {
+            return args[0];
         }
 
-        return null;
+        return Config.FILE_NAME;
 
     }
  }

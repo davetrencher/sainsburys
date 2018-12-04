@@ -1,5 +1,9 @@
 package com.github.davetrencher.config;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Properties;
@@ -12,10 +16,17 @@ import java.util.Properties;
  */
 public class Config {
 
+    private static final Logger logger = LogManager.getLogger(Config.class);
+
     /**
      * Properties filename.
      */
-    private static final String FILE_NAME = "./config.properties";
+    public static final String FILE_NAME = "/config/config.properties";
+
+    /**
+     * Allow config filename override.
+     */
+    private static String fileNameOverride;
 
     /**
      * Singleton instance of the config.  We only want to have one copy of this configuration.
@@ -40,6 +51,23 @@ public class Config {
         return config;
     }
 
+    private void initialise() throws IOException {
+
+        String fileName = StringUtils.isEmpty(fileNameOverride) ? FILE_NAME : fileNameOverride;
+        logger.info("Loading configuration from file: {}", fileName);
+        props.load(this.getClass().getResourceAsStream(fileName));
+
+    }
+
+    /**
+     * Allow overriding of the config files name.
+     * @param fileNameOverride fileName should be relative or root relative on the classpath.
+     */
+    public static void setFileNameOverride(String fileNameOverride) {
+        config = null;
+        Config.fileNameOverride = fileNameOverride;
+    }
+
     /**
      * Constructor made final as we should only ever instantiate through the getInstance() method.
      * @throws IOException thrown if there is an error loading the config file.
@@ -57,16 +85,10 @@ public class Config {
         return (String)props.get(propertyName);
     }
 
-    private void initialise() throws IOException {
-
-        props.load(this.getClass().getResourceAsStream(FILE_NAME));
-
-    }
-
     /**
      * The standard Vat rate that will be applied to line items. This can be overriden per lineItem.
      * This should be pulled from config.
-     * @return
+     * @return the standard Vat rate.
      */
     public BigDecimal getStandardVatRate() {
         return new BigDecimal(get("vatRate"));

@@ -34,8 +34,6 @@ dependencies {
 
     compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
 
-
-
     testCompile "com.github.tomakehurst:wiremock:2.19.0"
 
     testImplementation 'junit:junit:4.12'
@@ -48,4 +46,14 @@ jar {
     manifest {
         attributes 'Main-Class': 'com.github.davetrencher.Application'
     }
+}
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.github.davetrencher.Application'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
