@@ -4,6 +4,9 @@
 
 https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/webapp/wcs/stores/servlet/gb/groceries/berries-cherries-currants6039.html
 
+## Build Status
+
+[![Build Status](https://travis-ci.org/davetrencher/sainsburys.svg?branch=master)](https://travis-ci.org/davetrencher/sainsburys)
 
 ## Requirements
 
