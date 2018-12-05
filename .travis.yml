@@ -14,4 +14,4 @@ jdk:
   - oraclejdk8
 
 script:
-  - ./gradlew build --scan -s
+  - ./gradlew build fatJar --scan -s
