@@ -19,6 +19,7 @@ public class TestLoggingAppender extends AbstractAppender {
 
     private final List<LogEvent> logs = new ArrayList<>();
 
+    @SuppressWarnings("unchecked")
     private TestLoggingAppender(String name, Filter filter,
                                   Layout layout, final boolean ignoreExceptions) {
         super(name, filter, layout, ignoreExceptions);
@@ -29,8 +30,7 @@ public class TestLoggingAppender extends AbstractAppender {
         logs.add(event);
     }
 
-    public void clearMessages ()
-    {
+    public void clearMessages () {
         logs.clear();
     }
 
@@ -42,6 +42,7 @@ public class TestLoggingAppender extends AbstractAppender {
     }
 
     public List<String> getMessages() {
+
         if (logs.isEmpty()) {
             return null;
         }
@@ -49,10 +50,6 @@ public class TestLoggingAppender extends AbstractAppender {
         return logs.stream().map(logEvent -> logEvent.getMessage().getFormattedMessage()).collect(Collectors.toList());
     }
 
-    // Your custom appender needs to declare a factory method
-    // annotated with `@PluginFactory`. Log4j will parse the configuration
-    // and call this factory method to construct an appender instance with
-    // the configured attributes.
     @PluginFactory
     static TestLoggingAppender createAppender(
             @PluginAttribute("name") String name,
