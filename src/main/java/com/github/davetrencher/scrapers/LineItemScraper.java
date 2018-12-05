@@ -1,5 +1,8 @@
 package com.github.davetrencher.scrapers;
 
+import static com.github.davetrencher.scrapers.LineItemScraper.Selector.*;
+
+import com.github.davetrencher.config.Config;
 import com.github.davetrencher.model.LineItem;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +25,32 @@ public class LineItemScraper implements Scraper<LineItem> {
 
     private static final String KCAL_UPPER_CASE = "kcal";
 
+    /**
+     * Holds the selectors used in this scraper.
+     */
+    public enum Selector {
+
+        TITLE("lineItemPage.selector.title"),
+        KCAL_PER_100G("lineItemPage.selector.kCalPer100g"),
+        UNIT_PRICE("lineItemPage.selector.unitPrice"),
+        DESCRIPTION("lineItemPage.selector.description");
+
+        private String cssSelector;
+
+        Selector(String cssSelector) {
+            this.cssSelector = cssSelector;
+        }
+
+        /**
+         * Return the value of the cssSelector specified.
+         * @return the value held in the properties file for this cssSelector.
+         * @throws IOException thrown if we can't access the properties.
+         */
+        public String getCssSelector() throws IOException {
+            return Config.getInstance().get(cssSelector);
+        }
+    }
+
     public LineItem scrape(String pageURLToScrape) throws IOException {
 
         Connection.Response response = Jsoup.connect(pageURLToScrape)
@@ -32,10 +61,10 @@ public class LineItemScraper implements Scraper<LineItem> {
         if (response.statusCode() == HttpURLConnection.HTTP_OK) {
             Document doc = response.parse();
 
-            Element title = doc.selectFirst("div.productTitleDescriptionContainer h1");
-            Element kCalPer100g = doc.selectFirst("table.nutritionTable tbody tr:nth-child(2) td");
-            Element unitPrice = doc.selectFirst("div.pricingAndTrolleyOptions p.pricePerUnit");
-            Element description = doc.selectFirst(".productText p:not(.statements)");
+            Element title = doc.selectFirst(TITLE.getCssSelector());
+            Element kCalPer100g = doc.selectFirst(KCAL_PER_100G.getCssSelector());
+            Element unitPrice = doc.selectFirst(UNIT_PRICE.getCssSelector());
+            Element description = doc.selectFirst(DESCRIPTION.getCssSelector());
 
             return new LineItem.Builder(toString(title))
                                             .kCalPer100g(kCalPer100gToInteger(kCalPer100g))

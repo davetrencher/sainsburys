@@ -3,7 +3,6 @@ package com.github.davetrencher.services;
 import com.github.davetrencher.model.LineItem;
 import com.github.davetrencher.scrapers.LineItemLinkScraper;
 import com.github.davetrencher.scrapers.LineItemScraper;
-import com.github.davetrencher.scrapers.LinkScraper;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

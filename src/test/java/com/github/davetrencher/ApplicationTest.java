@@ -8,6 +8,7 @@ import com.github.davetrencher.services.LineItemService;
 import com.github.davetrencher.util.TestHelper;
 import com.github.davetrencher.util.TestLoggingAppender;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -54,8 +55,13 @@ public class ApplicationTest {
         List<String> logs = testLoggingAppender.getMessages();
 
         String expectedResponse = TestHelper.getBodyFromFile(this.getClass(),"scrapeData-sample1.json");
-        assertThat(logs.get(logs.size()-1), is(expectedResponse));
+        String actualResponse = logs.get(logs.size()-1);
+        assertThat(sanitiseLB(actualResponse), is(expectedResponse));
 
+    }
+
+    private String sanitiseLB(String data) {
+        return StringUtils.replace(data, "\r\n", "\n");
     }
 
 

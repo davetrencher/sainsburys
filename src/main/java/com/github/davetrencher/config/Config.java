@@ -19,7 +19,7 @@ public class Config {
     private static final Logger logger = LogManager.getLogger(Config.class);
 
     /**
-     * Properties filename.
+     * CommonProperties filename.
      */
     public static final String FILE_NAME = "/config/config.properties";
 
@@ -86,12 +86,13 @@ public class Config {
     }
 
     /**
-     * The standard Vat rate that will be applied to line items. This can be overriden per lineItem.
+     * The standard VAT rate that will be applied to line items. This can be overriden per lineItem.
      * This should be pulled from config.
-     * @return the standard Vat rate.
+     * @return the standard VAT rate.
+     * @throws IOException thrown if we can't obtain the Standard VAT rate from configuration
      */
-    public BigDecimal getStandardVatRate() {
-        return new BigDecimal(get("vatRate"));
+    public BigDecimal getStandardVatRate() throws IOException {
+        return new BigDecimal(CommonProperties.VAT_RATE.getProperty());
     }
 
 }

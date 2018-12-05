@@ -28,7 +28,7 @@ public class ConfigTest {
     }
 
     @Test
-    public void getStandardVatRate() {
+    public void getStandardVatRate() throws IOException {
 
         assertThat(subject.getStandardVatRate(), is(new BigDecimal("20.0")));
 

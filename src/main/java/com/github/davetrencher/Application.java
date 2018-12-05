@@ -1,6 +1,7 @@
 package com.github.davetrencher;
 
 import com.github.davetrencher.config.Config;
+import com.github.davetrencher.config.CommonProperties;
 import com.github.davetrencher.exception.FormattingException;
 import com.github.davetrencher.formatters.Formatters;
 import com.github.davetrencher.model.LineItem;
@@ -30,7 +31,7 @@ public class Application {
         try {
 
             Config.setFileNameOverride(fileName);
-            String productPageURL = Config.getInstance().get("url");
+            String productPageURL = CommonProperties.URL.getProperty();
             List<LineItem> lineItems = new LineItemService().getLineItems(productPageURL);
             Result result = new LineItemResult(lineItems);
 

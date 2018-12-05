@@ -15,6 +15,8 @@ import java.util.List;
  */
 public abstract class LinkScraper implements Scraper<List<String>> {
 
+    private static final String ELEMENT_HREF = "href";
+
     /**
      * Scrape all the URLs from a page.
      * @param pageURLToScrape the URL of the page that we want to scrape.
@@ -33,7 +35,7 @@ public abstract class LinkScraper implements Scraper<List<String>> {
 
             Document doc = response.parse();
             for (Element a : doc.select(getCssRef())) {
-                lineItemLinks.add(a.attributes().get("href"));
+                lineItemLinks.add(a.attributes().get(ELEMENT_HREF));
             }
         }
 
