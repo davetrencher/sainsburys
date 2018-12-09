@@ -9,3 +9,4 @@ build
 .gradle
 
 .terraform
+terraform/terraform.tfvars
