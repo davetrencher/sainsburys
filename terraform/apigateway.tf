@@ -79,13 +79,10 @@ resource "aws_api_gateway_usage_plan" "get_products_usage_plan" {
 
   quota_settings {
     limit = 300
-    period = "WEEK"
+    offset = 0
+    period = "DAY"
   }
 
-  throttle_settings {
-    burst_limit = 10
-    rate_limit = 20
-  }
 }
 
 resource "aws_api_gateway_usage_plan_key" "get_products_usage_plan_key" {
