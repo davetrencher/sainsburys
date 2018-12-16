@@ -74,8 +74,17 @@ resource "aws_api_gateway_usage_plan" "get_products_usage_plan" {
 
   api_stages {
     api_id = "${aws_api_gateway_rest_api.get_products_api.id}"
-    stage = "${aws_api_gateway_deployment.get_products_deploy.stage_name
-    }"
+    stage = "${aws_api_gateway_deployment.get_products_deploy.stage_name}"
+  }
+
+  quota_settings {
+    limit = 300
+    period = "WEEK"
+  }
+
+  throttle_settings {
+    burst_limit = 10
+    rate_limit = 20
   }
 }
 
