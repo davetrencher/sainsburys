@@ -11,3 +11,4 @@ build
 .terraform
 terraform/terraform.tfvars
 *.tfstate*
+/terraform/getProducts.sh
