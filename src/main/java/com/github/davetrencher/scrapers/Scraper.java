@@ -8,7 +8,7 @@ import java.io.IOException;
  */
 public interface Scraper<T> {
 
-    int TIMEOUT_MILLISECONDS_DEFAULT = 5 * 1000;
+    int TIMEOUT_MILLISECONDS_DEFAULT = 10 * 1000;
 
     /**
      * This will scrape the page and return data based on the scraping behaviour of the implementing object.

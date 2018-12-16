@@ -1,8 +1,11 @@
 package com.github.davetrencher.services;
 
+import com.github.davetrencher.config.Config;
 import com.github.davetrencher.model.LineItem;
 import com.github.davetrencher.scrapers.LineItemLinkScraper;
 import com.github.davetrencher.scrapers.LineItemScraper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -15,6 +18,8 @@ import java.util.List;
  */
 public class LineItemService {
 
+    private static final Logger logger = LogManager.getLogger(LineItemService.class);
+
     /**
      * Return all the line items on a given URL using the css selector.
      * @param url the url that we want to check.
@@ -24,6 +29,7 @@ public class LineItemService {
     public List<LineItem> getLineItems(String url) throws IOException {
 
         List<String> links = new LineItemLinkScraper().scrape(url);
+        logger.info(String.format("Found %s line items.",links.size()));
         final LineItemScraper lineItemScraper = new LineItemScraper();
 
         List<LineItem> list = new ArrayList<>();

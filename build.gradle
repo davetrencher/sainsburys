@@ -25,6 +25,7 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
 
+    compile group: 'com.amazonaws', name: 'aws-lambda-java-core', version: '1.2.0'
 
     compile group: "org.apache.logging.log4j", name: "log4j-core", version: "$log4jVersion"
     compile group: "org.apache.logging.log4j", name: "log4j-api", version: "$log4jVersion"
