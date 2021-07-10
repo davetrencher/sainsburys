@@ -11,7 +11,7 @@ variable "lambda_function_handler" {
 }
 
 variable "lambda_runtime" {
-  default = "java8"
+  default = "java11"
 }
 
 variable "api_path" {
